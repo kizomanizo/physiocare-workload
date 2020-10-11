@@ -1,0 +1,46 @@
+# Variables
+@baseUrl = http://localhost:3000/api/v1/levels
+@int = {{$randomInt 1000 9999}}
+
+### Get all levels
+GET {{baseUrl}}/?limit=30&skip=0 HTTP/1.1
+# Authorization: {{authToken}}
+
+### Add a level
+POST {{baseUrl}}/ HTTP/1.1
+Content-Type: application/json
+# Authorization: {{authToken}}
+
+{
+    "name": "accountant",
+    "description": "Saccos accountant",
+    "access": 1,
+    "rights": "0,1,2,3,4",
+    "status": 0
+}
+
+### Get level details
+GET {{baseUrl}}/5f7b681f13986809bc713de7
+# Authorization: {{authToken}}
+
+### Update Specific level Details
+PATCH {{baseUrl}}/5f7b681f13986809bc713de7 HTTP/1.1
+Content-Type: application/json
+# Authorization: {{authToken}}
+
+{
+    "name": "{{int}}-level",
+    "description": "Just anupdated {{int}} level for testing",
+    "access": 1,
+    "rights": "0,1,2,3",
+    "status": 1
+}
+
+### Delete a specific level
+DELETE {{baseUrl}}/5f7b68e21e6f71165408e169 HTTP/1.1
+Content-Type: application/json
+# Authorization: {{authToken}}
+
+
+### Bogus Route
+GET http://localhost:3000/boguses/ HTTP/1.1
