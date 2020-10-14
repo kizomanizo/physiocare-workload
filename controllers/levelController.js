@@ -37,7 +37,6 @@ exports.find = async function find (req, res) {
 
 exports.update = async function update (req, res) {
     try {
-        // console.log(req.params.id)
         const updatedLevel = await LevelService.update(req, res, req.params.id)
         ApiHelper.response(res, 200, true, "Level updated!", updatedLevel)
     }
