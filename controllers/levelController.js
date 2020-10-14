@@ -1,5 +1,5 @@
 // @Author Kizito Mrema
-// @Usage ApiHelper function accepts res, status, String title and Array
+// @Usage ApiHelper function accepts res object, boolean status, string title and a data array
 
 const LevelService = require('../services/levelService')
 const ErrorHelper = require('../helpers/errorHelper')
