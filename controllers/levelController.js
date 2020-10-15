@@ -45,9 +45,9 @@ exports.update = async function update (req, res) {
     }
 }
 
-exports.delete = async function (req, res) {
+exports.remove = async function remove (req, res) {
     try {
-        await LevelService.delete(req.params.id)
+        await LevelService.remove(req.params.id)
         ApiHelper.response(res, 202, true, "Deleted", "Level deleted!")
     }
     catch (error) {

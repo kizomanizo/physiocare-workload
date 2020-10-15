@@ -59,6 +59,7 @@ const userSchema = new mongoose.Schema({
     },
     updatedAt: {
         type: Date,
+        required: false,
         default: Date.now
     },
     createdBy: {
@@ -69,7 +70,7 @@ const userSchema = new mongoose.Schema({
     updatedBy: {
         type: String,
         default: "Admin",
-        required: [true, 'updatedBy: Is the field updated by ghosts?']
+        required: [false, 'updatedBy: Is the field updated by ghosts?']
     },
     levelId: ObjectId,
 },

@@ -67,9 +67,9 @@ exports.update = async function (req, res, id) {
     }   
 }
 
-exports.delete = async function (id) {
-    const levelToDelete = await Model.findById(id)
-    if (!levelToDelete) {
+exports.remove = async function (id) {
+    const levelToRemove = await Model.findById(id)
+    if (!levelToRemove) {
         throw new ErrorTypes(
             404,
             'NotFound',

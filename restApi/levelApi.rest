@@ -1,32 +1,35 @@
 # Variables
 @baseUrl = http://localhost:3000/api/v1/levels
+
+@authToken = {{login.response.body.data}}
+
 @int = {{$randomInt 1000 9999}}
 
 ### Get all levels
 GET {{baseUrl}}/?limit=30&skip=0 HTTP/1.1
-# Authorization: {{authToken}}
+Authorization: {{authToken}}
 
 ### Add a level
 POST {{baseUrl}}/ HTTP/1.1
 Content-Type: application/json
-# Authorization: {{authToken}}
+Authorization: {{authToken}}
 
 {
-    "name": "accountant",
-    "description": "Saccos accountant",
-    "access": 1,
-    "rights": "0,1,2,3,4",
+    "name": "member",
+    "description": "Saccos member",
+    "access": 4,
+    "rights": "4,5",
     "status": 0
 }
 
 ### Get level details
 GET {{baseUrl}}/5f7b681f13986809bc713de7
-# Authorization: {{authToken}}
+Authorization: {{authToken}}
 
 ### Update Specific level Details
-PATCH {{baseUrl}}/5f7b681f13986809bc713de7 HTTP/1.1
+PATCH {{baseUrl}}/5f885800e3d7307a4cab1c5b HTTP/1.1
 Content-Type: application/json
-# Authorization: {{authToken}}
+Authorization: {{authToken}}
 
 {
     "name": "{{int}}-level",
@@ -37,9 +40,20 @@ Content-Type: application/json
 }
 
 ### Delete a specific level
-DELETE {{baseUrl}}/5f7b68e21e6f71165408e169 HTTP/1.1
+DELETE {{baseUrl}}/5f885800e3d7307a4cab1c5b HTTP/1.1
 Content-Type: application/json
-# Authorization: {{authToken}}
+Authorization: {{authToken}}
+
+
+### Post login credentials to get a token
+ # @name login
+POST http://localhost:3000/api/v1/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "admin@example.com",
+    "password": "admin"
+}
 
 
 ### Bogus Route

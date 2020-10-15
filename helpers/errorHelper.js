@@ -4,44 +4,14 @@ const _ = require('lodash');
 const time = new Date();
 const ErrorTypes = require('./errorTypes');
 
-
-function response (error, res) {
-    let name = error.name;
-    let status = error.status;
-    let message = error.message;
-    let errors = error.errors;
-
-    if (name === 'ValidationError') {
-        status = 400;
-        message = "Validation Errors";
-        const lodashErrors = _.map(errors, 'message');
-        log.error(`${time}- Validation error ( ${status}): ${lodashErrors}`);
-    }
-    
-    else if (name === 'Error') {
-        status = 404;
-        const lodashErrors = _.map(errors, 'message');
-        log.error(`${time}- Not found error ( ${status}): ${lodashErrors}`);
-    }
-
-    if (status) {
-        return this.errorHelper(error, res)
-    }
-    else {
-        error.status = 500;
-        const title = message;
-        log.error(`${time}-Internal error ( ${status}): ${title}`);
-        return this.errorHelper(error, res)    
-    }
-
-
-}
-
-async function errorHelper (error, res) {
+async function response (error, res) {
     if (error instanceof ErrorTypes) {
-        var status = await error.status;
-        var message = await error.message;
-        var name = await error.name;
+        const status = await error.status
+        const message = await error.message
+        const name = await error.name
+        const errors = await error.errors
+        const lodashErrors = _.map(errors, 'message')
+        log.error(`${time}- Validation error ( ${status}): ${lodashErrors}`)
         res.status(status).json({
             success: false,
             title: name,
@@ -49,6 +19,7 @@ async function errorHelper (error, res) {
         })
     }
     else {
+        log.error(`${time}-Internal error ( ${error.status || 500}): ${error.name || 'Internal'}`)
         await res.status(error.status || 500).json({
             success: false,
             title: error.name || 'Internal',
@@ -58,6 +29,5 @@ async function errorHelper (error, res) {
 }
 
 module.exports = {
-    errorHelper,
     response,
 };
