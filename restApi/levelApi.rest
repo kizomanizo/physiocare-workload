@@ -1,5 +1,5 @@
 # Variables
-@baseUrl = http://localhost:3000/api/v1/levels
+@baseUrl = http://localhost:4100/api/v1/levels
 
 @authToken = {{login.response.body.data}}
 
@@ -15,11 +15,11 @@ Content-Type: application/json
 Authorization: {{authToken}}
 
 {
-    "name": "member",
-    "description": "Saccos member",
+    "name": "guest",
+    "description": "guest role",
     "access": 4,
-    "rights": "4,5",
-    "status": 0
+    "rights": "4",
+    "status": 1
 }
 
 ### Get level details
@@ -27,32 +27,28 @@ GET {{baseUrl}}/5f7b681f13986809bc713de7
 Authorization: {{authToken}}
 
 ### Update Specific level Details
-PATCH {{baseUrl}}/5f885800e3d7307a4cab1c5b HTTP/1.1
+PATCH {{baseUrl}}/6058a8da0dbe900c90528fce HTTP/1.1
 Content-Type: application/json
 Authorization: {{authToken}}
 
 {
-    "name": "{{int}}-level",
-    "description": "Just anupdated {{int}} level for testing",
-    "access": 1,
-    "rights": "0,1,2,3",
     "status": 1
 }
 
 ### Delete a specific level
-DELETE {{baseUrl}}/5f885800e3d7307a4cab1c5b HTTP/1.1
+DELETE {{baseUrl}}/6058a73684c0ff2274575b13 HTTP/1.1
 Content-Type: application/json
 Authorization: {{authToken}}
 
 
 ### Post login credentials to get a token
  # @name login
-POST http://localhost:3000/api/v1/users/login HTTP/1.1
+POST http://localhost:4100/api/v1/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "admin@example.com",
-    "password": "admin"
+    "email": "director@physiocaretz.com",
+    "password": "director"
 }
 
 

@@ -163,14 +163,14 @@ async function login (req) {
 async function seed (req, _res) {
     const saltRounds = 11
     const salt = bcrypt.genSaltSync(saltRounds)
-    const hash = bcrypt.hashSync('admin', salt)
-    var level = await Level.findOne({name: 'admin'}).exec()
+    const hash = bcrypt.hashSync('director', salt)
+    var level = await Level.findOne({name: 'director'}).exec()
     if (level == null) {
         const newLevel = new Level()
-        newLevel.name = 'admin'
-        newLevel.description = 'Initial admin level'
+        newLevel.name = 'director'
+        newLevel.description = 'Initial director level'
         newLevel.access = '1'
-        newLevel.rights = '1,2,3,4,5'
+        newLevel.rights = '1,2,3,4'
         newLevel.status = 1
         newLevel.createdBy = "System"
         newLevel.createdAt = Date()
@@ -180,11 +180,11 @@ async function seed (req, _res) {
         
     }
     
-    const admin = await User.findOne({email: 'admin@example.com'}).exec()
-    if (admin == null) {
-        const levelNew = await Level.findOne({name: 'admin'})
+    const director = await User.findOne({email: 'director@physiocaretz.com'}).exec()
+    if (director == null) {
+        const levelNew = await Level.findOne({name: 'director'})
         const user = new User({
-            email: 'admin@example.com',
+            email: 'director@physiocaretz.com',
             password: hash,
             salt: salt,
             saltRounds: saltRounds,
@@ -193,8 +193,8 @@ async function seed (req, _res) {
             status: 0,
             person: {
                 firstname: 'Initial',
-                middlename: null,
-                lastname: 'Admin',
+                middlename: 'Business',
+                lastname: 'Director',
                 phone: null,
             },
             joinDate: Date(),
@@ -204,20 +204,20 @@ async function seed (req, _res) {
         })
     
         // Persisting unclothed user
-        const adminUser = await user.save()
+        const directorUser = await user.save()
     
         // Covering private parts...
-        delete adminUser._doc.saltRounds
-        delete adminUser._doc.salt
-        delete adminUser._doc.password
+        delete directorUser._doc.saltRounds
+        delete directorUser._doc.salt
+        delete directorUser._doc.password
     
         // Yielding prude payload...
-        return adminUser
+        return directorUser
     } else {
         throw new ErrorTypes(
             401,
             'Unauthorized',
-            'Admin user already exists, consider changing the password.',
+            'Director user already exists, consider changing the password.',
         )
     }
 }
