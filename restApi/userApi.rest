@@ -1,5 +1,5 @@
 # Variables
-@baseUrl = http://localhost:3000/api/v1/users
+@baseUrl = http://localhost:4100/api/v1/users
 @int = {{$randomInt 1000 9999}}
 @authToken = {{login.response.body.data}}
 
